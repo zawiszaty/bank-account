@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\UI\CLI\AccountCommand:
+        class: App\UI\CLI\AccountCommand
+        arguments:
+            - '@App\Module\Account\API\ImplAccountAPI'
+        tags:
+            - { name: 'console' }
+
+    App\Module\Account\API\ImplAccountAPI:
+        class: App\Module\Account\API\ImplAccountAPI
+

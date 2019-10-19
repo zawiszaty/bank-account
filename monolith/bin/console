@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php
+
+use App\Application;
+use Symfony\Component\Console\Input\ArgvInput;
+
+require dirname(__DIR__) . '/vendor/autoload.php';
+
+$input       = new ArgvInput();
+$application = new Application('dev');
+$application->run($input);
