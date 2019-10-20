@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Module\Shared\Domain;
 
 
+use App\Module\Account\Main\Domain\Account;
+
 abstract class AggregateRoot
 {
     /**
@@ -43,5 +45,17 @@ abstract class AggregateRoot
     public function getUnCommittedEvent(): array
     {
         return $this->unCommittedEvent;
+    }
+
+    public static function restore(array $events): Account
+    {
+        $account = new Account();
+        /** @var Event $event */
+        foreach ($events as $event)
+        {
+            $account->apply($event);
+        }
+
+        return $account;
     }
 }

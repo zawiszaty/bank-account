@@ -11,5 +11,10 @@ services:
             - { name: 'console' }
 
     App\Module\Account\API\ImplAccountAPI:
+        arguments:
+            - '@App\Module\Account\Main\Application\AccountService'
         class: App\Module\Account\API\ImplAccountAPI
 
+    App\Module\Account\Main\Application\AccountService:
+        class: App\Module\Account\Main\Application\AccountService
+        public: true

@@ -13,9 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class AccountCommand extends Command
 {
     protected static $defaultName = 'app:account';
-    /**
-     * @var AccountAPI
-     */
+
     private $accountAPI;
 
     public function __construct(AccountAPI $accountAPI)

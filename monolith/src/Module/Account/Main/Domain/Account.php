@@ -19,10 +19,6 @@ final class Account extends AggregateRoot
     /** @var Balance */
     private $balance;
 
-    private function __construct()
-    {
-    }
-
     public static function create(): self
     {
         $account = new static();
