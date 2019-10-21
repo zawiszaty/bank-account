@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace App\Module\Account\Main\Application;
 
 use App\Module\Account\Main\Domain\Account;
-use App\Module\Account\Main\Infrastructure\Repository\AccountRepository;
+use App\Module\Account\Main\Infrastructure\Repository\AccountRepositoryInterface;
 use App\Module\Shared\Domain\AggregateRootId;
 
 final class AccountService
 {
     /**
-     * @var AccountRepository
+     * @var AccountRepositoryInterface
      */
     private $accountRepository;
 
-    public function __construct(AccountRepository $accountRepository)
+    public function __construct(AccountRepositoryInterface $accountRepository)
     {
         $this->accountRepository = $accountRepository;
     }

@@ -15,6 +15,16 @@ services:
             - '@App\Module\Account\Main\Application\AccountService'
         class: App\Module\Account\API\ImplAccountAPI
 
+    App\Module\Shared\Infrastructure\EventStore\EventStore:
+        class: App\Module\Shared\Infrastructure\EventStore\EventStore
+
+    App\Module\Account\Main\Infrastructure\Repository\AccountRepository:
+        arguments:
+            - '@App\Module\Shared\Infrastructure\EventStore\EventStore'
+        class: App\Module\Account\Main\Infrastructure\Repository\AccountRepository
+
     App\Module\Account\Main\Application\AccountService:
         class: App\Module\Account\Main\Application\AccountService
+        arguments:
+            - '@App\Module\Account\Main\Infrastructure\Repository\AccountRepository'
         public: true

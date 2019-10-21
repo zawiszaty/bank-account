@@ -8,10 +8,15 @@ namespace App\Module\Shared\Infrastructure\EventStore;
 use App\Module\Shared\Domain\AggregateRootId;
 use App\Module\Shared\Domain\Event;
 
-final class EventStore
+final class EventStore implements EventStoreInterface
 {
     /** @var EventStoreEvent[] */
     private $events;
+
+    public function __construct()
+    {
+        $this->events = [];
+    }
 
     /**
      * @return EventStoreEvent[]
@@ -53,21 +58,29 @@ final class EventStore
         return $event->getId()->toString() === $id->toString() && $event->getAggregate() === $aggregateClass;
     }
 
-    public function getAllAggregatesByType(string $aggregate)
+    public function getAllAggregatesByType(string $aggregate): array
     {
-        $aggregateIds = [];
+        /** @var EventStoreEvent[] $aggregateEvents */
+        $aggregateEvents = [];
 
         foreach ($this->events as $event)
         {
             if ($event->getAggregate() === $aggregate)
             {
-                $aggregateIds[] = $event->getId()->toString();
+                $aggregateEvents[$event->getId()->toString()][] = unserialize($event->getBody());
             }
         }
         $aggregates = [];
-        foreach ($aggregateIds as $id)
+
+        /**
+         * @var                 $id
+         * @var EventStoreEvent $aggregateEvent
+         */
+        foreach ($aggregateEvents as $id => $aggregateEvent)
         {
-          $aggregates[] = $aggregate = call_user_func($this->aggregate . '::restore', $events);
+            $aggregates[] = call_user_func($aggregate . '::restore', $aggregateEvents[$id]);
         }
+
+        return $aggregates;
     }
 }

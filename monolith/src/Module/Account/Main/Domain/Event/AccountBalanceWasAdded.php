@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Module\Account\Main\Domain\Event;
 
 
-use App\Module\Account\Main\Domain\ValueObject\Balance;
+use App\Module\Account\Main\Domain\Entity\Balance;
 use App\Module\Shared\Domain\AggregateRootId;
 use App\Module\Shared\Domain\Event;
 

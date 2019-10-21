@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace App\Module\Account\Main\Domain\ValueObject;
+namespace App\Module\Account\Main\Domain\Entity;
 
 
 use App\Module\Account\Main\Domain\Exception\AccountException;
@@ -13,10 +13,10 @@ final class Balance extends ValueObject
     /** @var float */
     private $balance;
 
-    public static function create(): self
+    public static function create(float $balance = 200): self
     {
         $self          = new static();
-        $self->balance = (float) 200;
+        $self->balance = $balance;
 
         return $self;
     }

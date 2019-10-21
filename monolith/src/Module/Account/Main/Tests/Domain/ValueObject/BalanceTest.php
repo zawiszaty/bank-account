@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace App\Module\Account\Main\Domain\ValueObject;
+namespace App\Module\Account\Main\Domain\Entity;
 
 use App\Module\Account\Main\Domain\Exception\AccountException;
 use PHPUnit\Framework\TestCase;

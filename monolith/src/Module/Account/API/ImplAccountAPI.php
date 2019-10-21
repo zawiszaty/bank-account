@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Module\Account\API;
 
 
-use App\Module\Account\IO\Balance;
+use App\Module\Account\IO\AccountCollection;
 use App\Module\Account\Main\Application\AccountService;
 
 final class ImplAccountAPI implements AccountAPI
@@ -20,18 +20,23 @@ final class ImplAccountAPI implements AccountAPI
         $this->accountService = $accountService;
     }
 
-    public function addToBalance(float $amount): void
+    public function addToBalance(string $id, float $amount): void
     {
-        $this->accountService->addBalance();
+        // TODO: Implement addToBalance() method.
     }
 
-    public function getBalance(): Balance
+    public function getAccount(): AccountCollection
     {
-        // TODO: Implement getBalance() method.
+        return new AccountCollection($this->accountService->getAll());
     }
 
-    public function withdraw(): void
+    public function withdraw(string $id, float $amount): void
     {
         // TODO: Implement withdraw() method.
+    }
+
+    public function create(): void
+    {
+        $this->accountService->create();
     }
 }

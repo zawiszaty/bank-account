@@ -7,12 +7,12 @@ namespace App\Module\Account\Main\Infrastructure\Repository;
 
 use App\Module\Account\Main\Domain\Account;
 use App\Module\Shared\Domain\AggregateRootId;
-use App\Module\Shared\Infrastructure\EventStore\EventStore;
+use App\Module\Shared\Infrastructure\EventStore\EventStoreInterface;
 use App\Module\Shared\Infrastructure\Repository\InMemoryRepository;
 
-final class AccountRepository extends InMemoryRepository
+final class AccountRepository extends InMemoryRepository implements AccountRepositoryInterface
 {
-    public function __construct(EventStore $eventsStore)
+    public function __construct(EventStoreInterface $eventsStore)
     {
         parent::__construct($eventsStore);
         $this->aggregate = Account::class;
@@ -30,6 +30,6 @@ final class AccountRepository extends InMemoryRepository
 
     public function getAll(): array
     {
-        return $this->
+        return $this->getAllAggregatesByType();
     }
 }

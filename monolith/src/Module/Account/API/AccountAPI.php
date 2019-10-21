@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace App\Module\Account\API;
 
 
-use App\Module\Account\IO\Balance;
+use App\Module\Account\IO\AccountCollection;
 
 interface AccountAPI
 {
-    public function addToBalance(float $amount): void;
+    public function create(): void;
 
-    public function getBalance(): Balance;
+    public function addToBalance(string $id, float $amount): void;
 
-    public function withdraw(): void;
+    public function getAccount(): AccountCollection;
+
+    public function withdraw(string $id, float $amount): void;
 }
