@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Module\Shared\Domain;
 
@@ -16,7 +16,7 @@ final class AggregateRootId extends ValueObject
     public static function withId(string $id): AggregateRootId
     {
         Assertion::uuid($id, 'Id must be uuid');
-        $static     = new static();
+        $static = new static();
         $static->id = Uuid::fromString($id);
 
         return $static;
@@ -24,7 +24,7 @@ final class AggregateRootId extends ValueObject
 
     public static function generate(): AggregateRootId
     {
-        $static     = new static();
+        $static = new static();
         $static->id = Uuid::uuid4();
 
         return $static;

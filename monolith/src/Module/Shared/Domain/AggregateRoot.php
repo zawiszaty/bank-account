@@ -1,9 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-
 namespace App\Module\Shared\Domain;
-
 
 use App\Module\Account\Main\Domain\Account;
 
@@ -51,8 +50,7 @@ abstract class AggregateRoot
     {
         $account = new Account();
         /** @var Event $event */
-        foreach ($events as $event)
-        {
+        foreach ($events as $event) {
             $account->apply($event);
         }
 

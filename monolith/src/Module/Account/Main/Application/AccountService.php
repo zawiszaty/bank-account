@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Module\Account\Main\Application;
 
@@ -27,17 +27,17 @@ final class AccountService
         $this->accountRepository->save();
     }
 
-    public function addBalance(AggregateRootId $id, float $balance): void
+    public function addBalance(string $id, float $balance): void
     {
-        $account = $this->accountRepository->find($id);
+        $account = $this->accountRepository->find(AggregateRootId::withId($id));
         $account->addBalance($balance);
         $this->accountRepository->apply($account);
         $this->accountRepository->save();
     }
 
-    public function withdraw(AggregateRootId $id, float $amount): void
+    public function withdraw(string $id, float $amount): void
     {
-        $account = $this->accountRepository->find($id);
+        $account = $this->accountRepository->find(AggregateRootId::withId($id));
         $account->withdraw($amount);
         $this->accountRepository->apply($account);
         $this->accountRepository->save();
@@ -46,5 +46,10 @@ final class AccountService
     public function getAll(): array
     {
         return $this->accountRepository->getAll();
+    }
+
+    public function getSingle(string $id): Account
+    {
+        return $this->accountRepository->getSingle($id);
     }
 }

@@ -1,9 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-
 namespace App\Module\Account\Main\Domain\Event;
-
 
 use App\Module\Shared\Domain\AggregateRootId;
 use App\Module\Shared\Domain\Event;

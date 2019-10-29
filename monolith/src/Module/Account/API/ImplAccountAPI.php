@@ -1,12 +1,13 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Module\Account\API;
 
-
+use App\Module\Account\IO\Account as AccountOutput;
 use App\Module\Account\IO\AccountCollection;
 use App\Module\Account\Main\Application\AccountService;
+use App\Module\Account\Main\Domain\Account;
 
 final class ImplAccountAPI implements AccountAPI
 {
@@ -22,17 +23,35 @@ final class ImplAccountAPI implements AccountAPI
 
     public function addToBalance(string $id, float $amount): void
     {
-        // TODO: Implement addToBalance() method.
+        $this->accountService->addBalance($id, $amount);
     }
 
-    public function getAccount(): AccountCollection
+    public function getAccounts(): AccountCollection
     {
-        return new AccountCollection($this->accountService->getAll());
+        $accounts = $this->accountService->getAll();
+        $output = [];
+
+        /** @var Account $account */
+        foreach ($accounts as $account) {
+            $output[] = new AccountOutput($account->getId()->toString(), $account->getBalance()->toFloat());
+        }
+        $accountCollection = new AccountCollection($output);
+
+        return $accountCollection;
+    }
+
+    public function getAccount(string $id): AccountOutput
+    {
+        $output = $this->accountService->getSingle($id);
+
+        $account = new AccountOutput($output->getId()->toString(), $output->getBalance()->toFloat());
+
+        return $account;
     }
 
     public function withdraw(string $id, float $amount): void
     {
-        // TODO: Implement withdraw() method.
+        $this->accountService->withdraw($id, $amount);
     }
 
     public function create(): void

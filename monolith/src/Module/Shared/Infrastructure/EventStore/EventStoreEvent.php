@@ -1,9 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-
 namespace App\Module\Shared\Infrastructure\EventStore;
-
 
 use App\Module\Shared\Domain\AggregateRootId;
 
@@ -20,8 +19,8 @@ final class EventStoreEvent
 
     public function __construct(AggregateRootId $id, string $body, string $aggregate)
     {
-        $this->id        = $id;
-        $this->body      = $body;
+        $this->id = $id;
+        $this->body = $body;
         $this->aggregate = $aggregate;
     }
 

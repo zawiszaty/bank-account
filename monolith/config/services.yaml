@@ -6,7 +6,7 @@ services:
     App\UI\CLI\AccountCommand:
         class: App\UI\CLI\AccountCommand
         arguments:
-            - '@App\Module\Account\API\ImplAccountAPI'
+            - '@App\Module\Account\API\LaravelAccountAPI'
         tags:
             - { name: 'console' }
 
@@ -28,3 +28,11 @@ services:
         arguments:
             - '@App\Module\Account\Main\Infrastructure\Repository\AccountRepository'
         public: true
+
+    App\Module\Account\API\LaravelMonolithClient:
+        class: App\Module\Account\API\LaravelMonolithClient
+
+    App\Module\Account\API\LaravelAccountAPI:
+        class: App\Module\Account\API\LaravelAccountAPI
+        arguments:
+            - '@App\Module\Account\API\LaravelMonolithClient'

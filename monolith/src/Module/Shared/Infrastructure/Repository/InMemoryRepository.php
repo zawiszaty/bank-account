@@ -1,20 +1,18 @@
 <?php
+
 declare(strict_types=1);
 
-
 namespace App\Module\Shared\Infrastructure\Repository;
-
 
 use App\Module\Shared\Domain\AggregateRoot;
 use App\Module\Shared\Domain\AggregateRootId;
 use App\Module\Shared\Domain\Event;
-use App\Module\Shared\Infrastructure\EventStore\EventStore;
 use App\Module\Shared\Infrastructure\EventStore\EventStoreInterface;
 
 class InMemoryRepository
 {
     /** @var EventStoreInterface */
-    private $eventsStore;
+    protected $eventsStore;
 
     /** @var Event[] */
     protected $unCommittedEvents;
@@ -24,7 +22,7 @@ class InMemoryRepository
 
     public function __construct(EventStoreInterface $eventsStore)
     {
-        $this->eventsStore       = $eventsStore;
+        $this->eventsStore = $eventsStore;
         $this->unCommittedEvents = [];
     }
 
@@ -37,8 +35,8 @@ class InMemoryRepository
 
     public function getAggregate(AggregateRootId $id): AggregateRoot
     {
-        $events    = $this->eventsStore->getAggregateEvents($id, $this->aggregate);
-        $aggregate = call_user_func($this->aggregate . '::restore', $events);
+        $events = $this->eventsStore->getAggregateEvents($id, $this->aggregate);
+        $aggregate = call_user_func($this->aggregate.'::restore', $events);
 
         return $aggregate;
     }

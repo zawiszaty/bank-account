@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Module\Account\Main\Domain;
 
@@ -13,7 +13,7 @@ class AccountTest extends TestCase
     public function test_it_create_account_with_starter_balance()
     {
         $account = Account::create();
-        $events  = $account->getUnCommittedEvent();
+        $events = $account->getUnCommittedEvent();
         $this->assertSame((float) 200, $account->getBalance()->toFloat());
         $this->assertInstanceOf(AccountWasCreated::class, $events[0]);
     }

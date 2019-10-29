@@ -1,9 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-
 namespace App\Module\Account\Main\Domain\Event;
-
 
 use App\Module\Account\Main\Domain\Entity\Balance;
 use App\Module\Shared\Domain\AggregateRootId;
@@ -19,7 +18,7 @@ final class AccountBalanceWasAdded implements Event
 
     public function __construct(AggregateRootId $id, Balance $balance)
     {
-        $this->id      = $id;
+        $this->id = $id;
         $this->balance = $balance;
     }
 

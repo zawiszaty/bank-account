@@ -1,10 +1,10 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Module\Shared\Infrastructure\EventStore;
 
-
+use App\Module\Shared\Domain\AggregateRoot;
 use App\Module\Shared\Domain\AggregateRootId;
 use App\Module\Shared\Domain\Event;
 
@@ -42,10 +42,8 @@ final class EventStore implements EventStoreInterface
     {
         $events = [];
 
-        foreach ($this->events as $event)
-        {
-            if ($this->isCorrectAggregateEvent($id, $aggregateClass, $event))
-            {
+        foreach ($this->events as $event) {
+            if ($this->isCorrectAggregateEvent($id, $aggregateClass, $event)) {
                 $events[] = unserialize($event->getBody());
             }
         }
@@ -63,24 +61,43 @@ final class EventStore implements EventStoreInterface
         /** @var EventStoreEvent[] $aggregateEvents */
         $aggregateEvents = [];
 
-        foreach ($this->events as $event)
-        {
-            if ($event->getAggregate() === $aggregate)
-            {
+        foreach ($this->events as $event) {
+            if ($event->getAggregate() === $aggregate) {
                 $aggregateEvents[$event->getId()->toString()][] = unserialize($event->getBody());
             }
         }
         $aggregates = [];
 
         /**
-         * @var                 $id
+         * @var
          * @var EventStoreEvent $aggregateEvent
          */
-        foreach ($aggregateEvents as $id => $aggregateEvent)
-        {
-            $aggregates[] = call_user_func($aggregate . '::restore', $aggregateEvents[$id]);
+        foreach ($aggregateEvents as $id => $aggregateEvent) {
+            $aggregates[] = call_user_func($aggregate.'::restore', $aggregateEvents[$id]);
         }
 
         return $aggregates;
+    }
+
+    public function getAggregate(AggregateRootId $withId, string $aggregate): AggregateRoot
+    {
+        /** @var EventStoreEvent[] $aggregateEvents */
+        $aggregateEvents = [];
+
+        foreach ($this->events as $event) {
+            if ($event->getAggregate() === $aggregate && $event->getId()->toString() === $withId->toString()) {
+                $aggregateEvents[$event->getId()->toString()][] = unserialize($event->getBody());
+            }
+        }
+
+        /**
+         * @var
+         * @var EventStoreEvent $aggregateEvent
+         */
+        foreach ($aggregateEvents as $id => $aggregateEvent) {
+            $aggregate = call_user_func($aggregate.'::restore', $aggregateEvents[$id]);
+        }
+
+        return $aggregate;
     }
 }

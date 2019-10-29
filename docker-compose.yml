@@ -1,8 +1,41 @@
 version: '3.1'
 
 services:
-    php:
+    monolith:
         build: docker/dev/php
         working_dir: /var/www/project
         volumes:
             - ./monolith:/var/www/project:delegated
+    laravel:
+        build: docker/dev/php
+        working_dir: /var/www/project
+        environment:
+            SERVICE_NAME: app
+            SERVICE_TAGS: dev
+        volumes:
+            - ./laravel-microservice:/var/www/project:delegated
+
+    nginx:
+        image: nginx:alpine
+        container_name: webserver
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "9898:80"
+        volumes:
+            - ./laravel-microservice:/var/www/project:delegated
+            - ./docker/dev/nginx/app.conf:/etc/nginx/conf.d/default.conf
+        links:
+          - laravel
+
+    db:
+        image: mysql:5.7.22
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "3310:3306"
+        environment:
+            MYSQL_DATABASE: admin
+            MYSQL_ROOT_PASSWORD: admin
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql

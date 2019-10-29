@@ -1,9 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-
 namespace App\Module\Account\Main\Domain\Entity;
-
 
 use App\Module\Account\Main\Domain\Exception\AccountException;
 use App\Module\Shared\Domain\ValueObject;
@@ -15,7 +14,7 @@ final class Balance extends ValueObject
 
     public static function create(float $balance = 200): self
     {
-        $self          = new static();
+        $self = new static();
         $self->balance = $balance;
 
         return $self;
@@ -28,9 +27,8 @@ final class Balance extends ValueObject
 
     public function withdraw(float $amount): Balance
     {
-        if ($this->balance - $amount > 0)
-        {
-            $self          = new static();
+        if ($this->balance - $amount > 0) {
+            $self = new static();
             $self->balance = $this->balance - $amount;
 
             return $self;
@@ -41,7 +39,7 @@ final class Balance extends ValueObject
 
     public function addBalance(float $amount): self
     {
-        $self          = new static();
+        $self = new static();
         $self->balance = $this->balance + $amount;
 
         return $self;

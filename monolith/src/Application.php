@@ -1,9 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-
 namespace App;
-
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application as ConsoleApplication;
@@ -21,17 +20,16 @@ final class Application extends ConsoleApplication
     public function __construct(string $env)
     {
         parent::__construct('test', '0');
-        $this->env       = $env;
+        $this->env = $env;
         $this->container = new ContainerBuilder();
         $this->setUpContainer();
     }
 
     private function setUpContainer(): void
     {
-        $loader = new YamlFileLoader($this->container, new FileLocator(__DIR__ . '/../config'));
+        $loader = new YamlFileLoader($this->container, new FileLocator(__DIR__.'/../config'));
         $loader->load('services.yaml');
-        foreach ($this->container->findTaggedServiceIds('console') as $commandId => $command)
-        {
+        foreach ($this->container->findTaggedServiceIds('console') as $commandId => $command) {
             $this->add($this->container->get($commandId));
         }
     }

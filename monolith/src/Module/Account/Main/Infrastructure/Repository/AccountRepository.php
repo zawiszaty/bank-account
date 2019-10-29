@@ -1,9 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-
 namespace App\Module\Account\Main\Infrastructure\Repository;
-
 
 use App\Module\Account\Main\Domain\Account;
 use App\Module\Shared\Domain\AggregateRootId;
@@ -31,5 +30,10 @@ final class AccountRepository extends InMemoryRepository implements AccountRepos
     public function getAll(): array
     {
         return $this->getAllAggregatesByType();
+    }
+
+    public function getSingle(string $id): Account
+    {
+        return $this->eventsStore->getAggregate(AggregateRootId::withId($id), $this->aggregate);
     }
 }

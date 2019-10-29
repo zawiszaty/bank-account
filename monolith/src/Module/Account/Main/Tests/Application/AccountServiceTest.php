@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace App\Module\Account\Main\Application;
 
@@ -27,9 +27,8 @@ class AccountServiceTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->eventStore        = new EventStore();
+        $this->eventStore = new EventStore();
         $this->accountRepository = new AccountRepository($this->eventStore);
-
     }
 
     public function test_it_create()
@@ -43,10 +42,10 @@ class AccountServiceTest extends TestCase
     {
         $service = new AccountService($this->accountRepository);
         $service->create();
-        $event       = $this->eventStore->getEvents()[0];
+        $event = $this->eventStore->getEvents()[0];
         $aggregateId = $event->getId();
-        $account     = $this->accountRepository->find($aggregateId);
-        $service->addBalance($account->getId(), 100);
+        $account = $this->accountRepository->find($aggregateId);
+        $service->addBalance($account->getId()->toString(), 100);
         $account = $this->accountRepository->find($aggregateId);
         $this->assertSame((float) 300, $account->getBalance()->toFloat());
     }
@@ -55,10 +54,10 @@ class AccountServiceTest extends TestCase
     {
         $service = new AccountService($this->accountRepository);
         $service->create();
-        $event       = $this->eventStore->getEvents()[0];
+        $event = $this->eventStore->getEvents()[0];
         $aggregateId = $event->getId();
-        $account     = $this->accountRepository->find($aggregateId);
-        $service->withdraw($account->getId(), 100);
+        $account = $this->accountRepository->find($aggregateId);
+        $service->withdraw($account->getId()->toString(), 100);
         $account = $this->accountRepository->find($aggregateId);
         $this->assertSame((float) 100, $account->getBalance()->toFloat());
     }
@@ -67,7 +66,7 @@ class AccountServiceTest extends TestCase
     {
         $this->mockEvents();
         $service = new AccountService($this->accountRepository);
-        $all     = $service->getAll();
+        $all = $service->getAll();
         /** @var Account $account */
         $account = $all[0];
         $this->assertInstanceOf(Account::class, $account);
