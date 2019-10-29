@@ -3,6 +3,7 @@ start: stop composer up db
 
 .PHONY: ci
 ci: stop composer up db test
+		docker-compose exec laravel cp .env.example .env
 
 .PHONY: stop
 stop: ## stop environment
