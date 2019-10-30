@@ -2,7 +2,7 @@
 start: env stop composer up db
 
 .PHONY: ci
-ci: stop composer up env db test
+ci: env stop composer up db test
 
 .PHONY: env
 env:

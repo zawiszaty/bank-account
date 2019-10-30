@@ -9,17 +9,15 @@ services:
     laravel:
         build: docker/dev/php
         working_dir: /var/www/project
-        environment:
-            SERVICE_NAME: app
-            SERVICE_TAGS: dev
         volumes:
             - ./laravel-microservice:/var/www/project:delegated
+        links:
+          - db
 
     nginx:
         image: nginx:alpine
         container_name: webserver
         restart: unless-stopped
-        tty: true
         ports:
             - "9898:80"
         volumes:
@@ -31,11 +29,8 @@ services:
     db:
         image: mysql:5.7.22
         restart: unless-stopped
-        tty: true
         ports:
             - "3310:3306"
         environment:
             MYSQL_DATABASE: admin
             MYSQL_ROOT_PASSWORD: admin
-            SERVICE_TAGS: dev
-            SERVICE_NAME: mysql
