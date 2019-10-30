@@ -1,12 +1,12 @@
 .PHONY: start
-start: stop composer up env db
+start: env stop composer up db
 
 .PHONY: ci
 ci: stop composer up env db test
 
 .PHONY: env
 env:
-		docker-compose exec laravel cp .env.example .env
+		cp laravel-microservice/.env.example laravel-microservice/.env
 
 .PHONY: stop
 stop: ## stop environment
