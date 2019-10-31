@@ -91,7 +91,6 @@ final class EventStore implements EventStoreInterface
         }
 
         /**
-         * @var
          * @var EventStoreEvent $aggregateEvent
          */
         foreach ($aggregateEvents as $id => $aggregateEvent) {

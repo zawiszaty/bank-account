@@ -6,7 +6,7 @@ services:
     App\UI\CLI\AccountCommand:
         class: App\UI\CLI\AccountCommand
         arguments:
-            - '@App\Module\Account\API\LaravelAccountAPI'
+            - '@App\Module\Account\API\ImplAccountAPI'
         tags:
             - { name: 'console' }
 
