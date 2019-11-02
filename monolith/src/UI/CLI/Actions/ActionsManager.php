@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\UI\CLI\Actions;
 
 
-use RuntimeException;
+use App\UI\CLI\Actions\Exception\ActionException;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class ActionsManager
@@ -32,6 +32,6 @@ final class ActionsManager
             }
         }
 
-        throw new RuntimeException;
+        throw ActionException::fromMissingAction($actionName->getValue());
     }
 }
