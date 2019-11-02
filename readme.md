@@ -13,21 +13,17 @@ in memory eventStore implementation.
 1. Open  `monolith/config/services.yaml`
 1. Change:
     ```yaml
-       App\UI\CLI\AccountCommand:
-           class: App\UI\CLI\AccountCommand
-           arguments:
-               - '@App\Module\Account\API\LaravelAccountAPI'
-           tags:
-               - { name: 'console' } 
+    account.api.implementation:
+        arguments:
+            - '@App\Module\Account\API\LaravelMonolithClient'
+        class: App\Module\Account\API\LaravelAccountAPI
    ```
    To:
    ```yaml
-    App\UI\CLI\AccountCommand:
-        class: App\UI\CLI\AccountCommand
+    account.api.implementation:
         arguments:
-            - '@App\Module\Account\API\ImplAccountAPI'
-        tags:
-            - { name: 'console' }
+            - '@App\Module\Account\Main\Application\AccountService'
+        class: App\Module\Account\API\ImplAccountAPI
    ```
 ## How to create you own?
 1. Create your implementation adapter in API folder, implement interface Account API and that's it. :P
