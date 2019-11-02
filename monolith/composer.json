@@ -14,17 +14,18 @@
     "require": {
         "symfony/flex": "^1.4",
         "symfony/console": "^4.3",
-        "phpunit/phpunit": "^8.4",
         "beberlei/assert": "^3.2",
         "ramsey/uuid": "^3.8",
         "symfony/dependency-injection": "^4.3",
         "symfony/config": "^4.3",
         "symfony/yaml": "^4.3",
-        "guzzlehttp/guzzle": "^6.4"
+        "guzzlehttp/guzzle": "^6.4",
+        "myclabs/php-enum": "^1.7"
     }
     ,
     "require-dev": {
         "roave/security-advisories": "dev-master",
+        "phpunit/phpunit": "^8.4",
         "friendsofphp/php-cs-fixer": "^2.15"
     },
     "scripts": {

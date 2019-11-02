@@ -1,19 +1,16 @@
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
+    account.api.implementation:
+        arguments:
+            - '@App\Module\Account\API\LaravelMonolithClient'
+        class: App\Module\Account\API\LaravelAccountAPI
 
     App\UI\CLI\AccountCommand:
         class: App\UI\CLI\AccountCommand
         arguments:
-            - '@App\Module\Account\API\ImplAccountAPI'
+            - '@App\UI\CLI\Actions\ActionsManager'
+            - '@account.api.implementation'
         tags:
             - { name: 'console' }
-
-    App\Module\Account\API\ImplAccountAPI:
-        arguments:
-            - '@App\Module\Account\Main\Application\AccountService'
-        class: App\Module\Account\API\ImplAccountAPI
 
     App\Module\Shared\Infrastructure\EventStore\EventStore:
         class: App\Module\Shared\Infrastructure\EventStore\EventStore
@@ -32,7 +29,33 @@ services:
     App\Module\Account\API\LaravelMonolithClient:
         class: App\Module\Account\API\LaravelMonolithClient
 
-    App\Module\Account\API\LaravelAccountAPI:
-        class: App\Module\Account\API\LaravelAccountAPI
+    App\UI\CLI\Actions\ActionsManager:
+        class: App\UI\CLI\Actions\ActionsManager
+
+    App\UI\CLI\Actions\Specification\AddAccountAction:
+        class: App\UI\CLI\Actions\Specification\AddAccountAction
         arguments:
-            - '@App\Module\Account\API\LaravelMonolithClient'
+            - '@account.api.implementation'
+        tags:
+            - {name: 'action'}
+
+    App\UI\CLI\Actions\Specification\AddBalanceAction:
+        class: App\UI\CLI\Actions\Specification\AddBalanceAction
+        arguments:
+            - '@account.api.implementation'
+        tags:
+            - {name: 'action'}
+
+    App\UI\CLI\Actions\Specification\GetSingleAction:
+        class: App\UI\CLI\Actions\Specification\GetSingleAction
+        arguments:
+            - '@account.api.implementation'
+        tags:
+            - {name: 'action'}
+
+    App\UI\CLI\Actions\Specification\WithdrawAction:
+        class: App\UI\CLI\Actions\Specification\WithdrawAction
+        arguments:
+            - '@account.api.implementation'
+        tags:
+            - {name: 'action'}

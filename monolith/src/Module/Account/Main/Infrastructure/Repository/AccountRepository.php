@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Module\Account\Main\Infrastructure\Repository;
 
 use App\Module\Account\Main\Domain\Account;
+use App\Module\Account\Main\Domain\AccountRepositoryInterface;
 use App\Module\Shared\Domain\AggregateRootId;
 use App\Module\Shared\Infrastructure\EventStore\EventStoreInterface;
 use App\Module\Shared\Infrastructure\Repository\InMemoryRepository;

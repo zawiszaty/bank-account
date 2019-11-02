@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\UI\CLI\Actions\ActionsManager;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application as ConsoleApplication;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -20,7 +21,7 @@ final class Application extends ConsoleApplication
     public function __construct(string $env)
     {
         parent::__construct('test', '0');
-        $this->env = $env;
+        $this->env       = $env;
         $this->container = new ContainerBuilder();
         $this->setUpContainer();
     }
@@ -31,6 +32,14 @@ final class Application extends ConsoleApplication
         $loader->load('services.yaml');
         foreach ($this->container->findTaggedServiceIds('console') as $commandId => $command) {
             $this->add($this->container->get($commandId));
+        }
+
+        /** @var ActionsManager $actionManager */
+        $actionManager = $this->container->get(ActionsManager::class);
+
+        foreach ($this->container->findTaggedServiceIds('action') as $actionId => $action)
+        {
+            $actionManager->addAction($this->container->get($actionId));
         }
     }
 }

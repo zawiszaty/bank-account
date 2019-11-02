@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Module\Account\Main\Infrastructure\Repository;
+namespace App\Module\Account\Main\Domain;
 
 use App\Module\Account\Main\Domain\Account;
 use App\Module\Shared\Domain\AggregateRoot;

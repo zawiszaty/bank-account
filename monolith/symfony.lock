@@ -50,6 +50,9 @@
     "myclabs/deep-copy": {
         "version": "1.9.3"
     },
+    "myclabs/php-enum": {
+        "version": "1.7.2"
+    },
     "paragonie/random_compat": {
         "version": "v9.99.99"
     },
