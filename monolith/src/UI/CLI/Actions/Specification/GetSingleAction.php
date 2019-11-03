@@ -10,7 +10,7 @@ use App\Module\Account\API\AccountAPI;
 use App\Module\Account\IO\Account;
 use App\UI\CLI\AccountCommand;
 use App\UI\CLI\Actions\ActionInterface;
-use App\UI\CLI\Actions\Actions;
+use App\UI\CLI\Actions\ActionType;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -23,9 +23,9 @@ final class GetSingleAction implements ActionInterface
         $this->accountAPI = $accountAPI;
     }
 
-    public function supports(Actions $action): bool
+    public function supports(ActionType $action): bool
     {
-        return Actions::GET_SINGLE()->equals($action);
+        return ActionType::GET_SINGLE()->equals($action);
     }
 
     public function execute(SymfonyStyle $io): void

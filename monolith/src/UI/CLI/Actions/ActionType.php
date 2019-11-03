@@ -8,12 +8,12 @@ namespace App\UI\CLI\Actions;
 use MyCLabs\Enum\Enum;
 
 /**
- * @method static Actions ADD_ACCOUNT()
- * @method static Actions ADD_BALANCE()
- * @method static Actions WITHDRAW()
- * @method static Actions GET_SINGLE()
+ * @method static ActionType ADD_ACCOUNT()
+ * @method static ActionType ADD_BALANCE()
+ * @method static ActionType WITHDRAW()
+ * @method static ActionType GET_SINGLE()
  */
-final class Actions extends Enum
+final class ActionType extends Enum
 {
     const ADD_ACCOUNT = 'Add Account';
     const ADD_BALANCE = 'Add Balance';

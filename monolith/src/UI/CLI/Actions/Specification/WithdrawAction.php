@@ -9,7 +9,7 @@ namespace App\UI\CLI\Actions\Specification;
 use App\Module\Account\API\AccountAPI;
 use App\UI\CLI\AccountCommand;
 use App\UI\CLI\Actions\ActionInterface;
-use App\UI\CLI\Actions\Actions;
+use App\UI\CLI\Actions\ActionType;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -23,9 +23,9 @@ final class WithdrawAction implements ActionInterface
         $this->accountAPI = $accountAPI;
     }
 
-    public function supports(Actions $action): bool
+    public function supports(ActionType $action): bool
     {
-        return Actions::WITHDRAW()->equals($action);
+        return ActionType::WITHDRAW()->equals($action);
     }
 
     public function execute(SymfonyStyle $io): void

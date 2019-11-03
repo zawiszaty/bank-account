@@ -9,7 +9,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 interface ActionInterface
 {
-    public function supports(Actions $action): bool;
+    public function supports(ActionType $action): bool;
 
     public function execute(SymfonyStyle $io): void;
 }

@@ -20,11 +20,11 @@ final class ActionsManager
         $this->actions[] = $action;
     }
 
-    public function executeAction(Actions $actionName, SymfonyStyle $io): void
+    public function executeAction(ActionType $actionType, SymfonyStyle $io): void
     {
         foreach ($this->actions as $action)
         {
-            if ($action->supports($actionName))
+            if ($action->supports($actionType))
             {
                 $action->execute($io);
 
@@ -32,6 +32,6 @@ final class ActionsManager
             }
         }
 
-        throw ActionException::fromMissingAction($actionName->getValue());
+        throw ActionException::fromMissingAction($actionType->getValue());
     }
 }

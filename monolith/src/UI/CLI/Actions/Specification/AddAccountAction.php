@@ -8,7 +8,7 @@ namespace App\UI\CLI\Actions\Specification;
 use App\Module\Account\API\AccountAPI;
 use App\UI\CLI\AccountCommand;
 use App\UI\CLI\Actions\ActionInterface;
-use App\UI\CLI\Actions\Actions;
+use App\UI\CLI\Actions\ActionType;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class AddAccountAction implements ActionInterface
@@ -20,9 +20,9 @@ final class AddAccountAction implements ActionInterface
         $this->accountAPI = $accountAPI;
     }
 
-    public function supports(Actions $action): bool
+    public function supports(ActionType $action): bool
     {
-        return Actions::ADD_ACCOUNT()->equals($action);
+        return ActionType::ADD_ACCOUNT()->equals($action);
     }
 
     public function execute(SymfonyStyle $io): void

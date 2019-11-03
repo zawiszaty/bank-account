@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\UI\CLI;
 
 use App\Module\Account\API\AccountAPI;
-use App\UI\CLI\Actions\Actions;
+use App\UI\CLI\Actions\ActionType;
 use App\UI\CLI\Actions\ActionsManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -34,14 +34,14 @@ final class AccountCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $io->write(self::CLEAR_TERMINAL);
-        $question = new ChoiceQuestion('Please select Action', array_values(Actions::values()), 0);
+        $question = new ChoiceQuestion('Please select Action', array_values(ActionType::values()), 0);
         $question->setErrorMessage('Action %s is invalid.');
 
         while (true)
         {
             $accountCount = count($this->accountAPI->getAccounts()->getAccounts());
             $io->writeln(sprintf('<info>You have %s account in Database</info>', $accountCount));
-            $action = new Actions($io->askQuestion($question));
+            $action = new ActionType($io->askQuestion($question));
             $this->actionsManager->executeAction($action, $io);
         }
     }
