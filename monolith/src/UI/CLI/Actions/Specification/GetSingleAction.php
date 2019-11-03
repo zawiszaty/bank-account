@@ -8,7 +8,6 @@ namespace App\UI\CLI\Actions\Specification;
 
 use App\Module\Account\API\AccountAPI;
 use App\Module\Account\IO\Account;
-use App\UI\CLI\AccountCommand;
 use App\UI\CLI\Actions\ActionInterface;
 use App\UI\CLI\Actions\ActionType;
 use App\UI\CLI\CLICodeHelper;
