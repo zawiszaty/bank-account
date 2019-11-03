@@ -9,6 +9,7 @@ use App\Module\Account\API\AccountAPI;
 use App\UI\CLI\AccountCommand;
 use App\UI\CLI\Actions\ActionInterface;
 use App\UI\CLI\Actions\ActionType;
+use App\UI\CLI\CLICodeHelper;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -39,7 +40,7 @@ final class AddBalanceAction implements ActionInterface
         if (0 !== $action)
         {
             $this->accountAPI->addToBalance($accountId, $action);
-            $io->write(AccountCommand::CLEAR_TERMINAL);
+            $io->write(CLICodeHelper::CLEAR_TERMINAL);
             $io->success(sprintf('Added %s to balance', $action));
 
             return;

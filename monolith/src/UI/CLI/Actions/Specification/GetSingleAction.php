@@ -11,6 +11,7 @@ use App\Module\Account\IO\Account;
 use App\UI\CLI\AccountCommand;
 use App\UI\CLI\Actions\ActionInterface;
 use App\UI\CLI\Actions\ActionType;
+use App\UI\CLI\CLICodeHelper;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -35,7 +36,7 @@ final class GetSingleAction implements ActionInterface
         $selectAccount->setErrorMessage('Account %s is invalid.');
         $accountId = $io->askQuestion($selectAccount);
         $account   = $this->accountAPI->getAccount($accountId);
-        $io->write(AccountCommand::CLEAR_TERMINAL);
+        $io->write(CLICodeHelper::CLEAR_TERMINAL);
 
         if ($account instanceof Account)
         {

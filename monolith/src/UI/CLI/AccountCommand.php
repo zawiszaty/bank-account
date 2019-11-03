@@ -17,8 +17,6 @@ final class AccountCommand extends Command
 {
     protected static $defaultName = 'app:account';
 
-    public const CLEAR_TERMINAL = "\033c";
-
     private $actionsManager;
 
     private $accountAPI;
@@ -33,7 +31,7 @@ final class AccountCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $io->write(self::CLEAR_TERMINAL);
+        $io->write(CLICodeHelper::CLEAR_TERMINAL);
         $question = new ChoiceQuestion('Please select Action', array_values(ActionType::values()), 0);
         $question->setErrorMessage('Action %s is invalid.');
 

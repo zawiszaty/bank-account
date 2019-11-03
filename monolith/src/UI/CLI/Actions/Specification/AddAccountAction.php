@@ -9,6 +9,7 @@ use App\Module\Account\API\AccountAPI;
 use App\UI\CLI\AccountCommand;
 use App\UI\CLI\Actions\ActionInterface;
 use App\UI\CLI\Actions\ActionType;
+use App\UI\CLI\CLICodeHelper;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class AddAccountAction implements ActionInterface
@@ -28,7 +29,7 @@ final class AddAccountAction implements ActionInterface
     public function execute(SymfonyStyle $io): void
     {
         $this->accountAPI->create();
-        $io->write(AccountCommand::CLEAR_TERMINAL);
+        $io->write(CLICodeHelper::CLEAR_TERMINAL);
         $io->success('Account Created');
     }
 }

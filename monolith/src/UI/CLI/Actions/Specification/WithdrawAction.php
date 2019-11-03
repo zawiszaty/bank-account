@@ -10,6 +10,7 @@ use App\Module\Account\API\AccountAPI;
 use App\UI\CLI\AccountCommand;
 use App\UI\CLI\Actions\ActionInterface;
 use App\UI\CLI\Actions\ActionType;
+use App\UI\CLI\CLICodeHelper;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -40,7 +41,7 @@ final class WithdrawAction implements ActionInterface
         if (0 !== $action)
         {
             $this->accountAPI->withdraw($accountId, $action);
-            $io->write(AccountCommand::CLEAR_TERMINAL);
+            $io->write(CLICodeHelper::CLEAR_TERMINAL);
             $io->success(sprintf('Withdraw %s from balance', $action));
 
             return;
