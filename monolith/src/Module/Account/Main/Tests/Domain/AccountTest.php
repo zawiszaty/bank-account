@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Module\Account\Main\Domain;
 
+use App\Module\Account\Main\Domain\Event\AccountBalanceWasAdded;
+use App\Module\Account\Main\Domain\Event\AccountBalanceWasWithdraw;
 use App\Module\Account\Main\Domain\Event\AccountWasCreated;
 use App\Module\Account\Main\Domain\Exception\AccountException;
 use PHPUnit\Framework\TestCase;
@@ -13,7 +15,7 @@ class AccountTest extends TestCase
     public function test_it_create_account_with_starter_balance()
     {
         $account = Account::create();
-        $events = $account->getUnCommittedEvent();
+        $events  = $account->getUnCommittedEvent();
         $this->assertSame((float) 200, $account->getBalance()->toFloat());
         $this->assertInstanceOf(AccountWasCreated::class, $events[0]);
     }
@@ -22,6 +24,8 @@ class AccountTest extends TestCase
     {
         $account = Account::create();
         $account->addBalance((float) 100);
+        $events = $account->getUnCommittedEvent();
+        $this->assertInstanceOf(AccountBalanceWasAdded::class, $events[1]);
         $this->assertSame((float) 300, $account->getBalance()->toFloat());
     }
 
@@ -29,6 +33,8 @@ class AccountTest extends TestCase
     {
         $account = Account::create();
         $account->withdraw((float) 100);
+        $events = $account->getUnCommittedEvent();
+        $this->assertInstanceOf(AccountBalanceWasWithdraw::class, $events[1]);
         $this->assertSame((float) 100, $account->getBalance()->toFloat());
     }
 

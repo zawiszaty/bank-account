@@ -6,6 +6,7 @@ services:
         working_dir: /var/www/project
         volumes:
             - ./monolith:/var/www/project:delegated
+
     laravel:
         build: docker/dev/php
         working_dir: /var/www/project
