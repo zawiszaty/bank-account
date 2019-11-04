@@ -40,7 +40,7 @@ final class Account extends AggregateRoot
     public function withdraw(float $amount): void
     {
         Assertion::notSame(0, $amount, 'Amount cannot be equal to 0');
-        $this->record(new AccountBalanceWasAdded($this->id, $this->balance->withdraw($amount)));
+        $this->record(new AccountBalanceWasWithdraw($this->id, $this->balance->withdraw($amount)));
     }
 
     public function apply(Event $event): void
