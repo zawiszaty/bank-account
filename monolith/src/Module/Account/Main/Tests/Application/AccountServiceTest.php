@@ -35,7 +35,7 @@ class AccountServiceTest extends TestCase
     {
         $service = new AccountService($this->accountRepository);
         $service->create();
-        $this->assertCount(1, $this->eventStore->getEvents());
+        $this->assertCount(1, $this->accountRepository->getAll());
     }
 
     public function test_it_add_balance()
