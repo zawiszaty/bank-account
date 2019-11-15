@@ -19,7 +19,7 @@ func (repository *MysqlAccountRepository) Apply(account Domain.Account) {
 	balance := fmt.Sprintf("%f", account.Balance.GetAmount())
 
 	if results == nil {
-		query := repository.db.Query("INSERT INTO `go_microservice`.`accounts` (`id`, `balance`) VALUES ('" + account.Id + "', " + balance + ")")
+		repository.db.Query("INSERT INTO `go_microservice`.`accounts` (`id`, `balance`) VALUES ('" + account.Id + "', " + balance + ")")
 	} else {
 		repository.db.Query("UPDATE `go_microservice`.`accounts` t SET  t.`balance` = " + balance + " WHERE t.`id` = '" + account.Id + "'")
 	}
