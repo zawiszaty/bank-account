@@ -27,6 +27,15 @@ services:
         links:
           - laravel
 
+    go:
+        build: docker/dev/go
+        working_dir: /go/src/zawiszaty/microservice
+        ports:
+          - '8989:80'
+        volumes:
+            - ./go-microservice:/go/src/zawiszaty/microservice:delegated
+        command: ["fresh", "main.go"]
+
     db:
         image: mysql:5.7.22
         restart: unless-stopped

@@ -1,2 +1,3 @@
 .idea
 /monolith/var/
+/go-microservice/tmp/

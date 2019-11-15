@@ -30,6 +30,8 @@ db: ## up db
 test:
 		docker-compose exec laravel ./vendor/bin/phpunit
 		docker-compose exec monolith ./vendor/bin/phpunit
+		docker-compose exec go go test ./Domain
+		docker-compose exec go go test ./UseCase
 
 .PHONY: monolith
 monolith: ## login into monolith container

@@ -1,8 +1,8 @@
 services:
     account.api.implementation:
         arguments:
-            - '@App\Module\Account\API\LaravelMonolithClient'
-        class: App\Module\Account\API\LaravelAccountAPI
+            - '@App\Module\Account\API\GoMonolithClient'
+        class: App\Module\Account\API\GoAccountAPI
 
     App\UI\CLI\AccountCommand:
         class: App\UI\CLI\AccountCommand
@@ -28,6 +28,9 @@ services:
 
     App\Module\Account\API\LaravelMonolithClient:
         class: App\Module\Account\API\LaravelMonolithClient
+
+    App\Module\Account\API\GoMonolithClient:
+        class: App\Module\Account\API\GoMonolithClient
 
     App\UI\CLI\Actions\ActionsManager:
         class: App\UI\CLI\Actions\ActionsManager
